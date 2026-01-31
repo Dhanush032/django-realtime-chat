@@ -1,0 +1,17 @@
+.env
+venv/
+media/
+*.log
+*.pot
+*.pyc
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+staticfiles/
+.vscode/
+Thumbs.db
+*.swp
+*.swo
+db.sqlite3

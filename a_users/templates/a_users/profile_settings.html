@@ -1,0 +1,83 @@
+{% extends 'layouts/box.html' %}
+
+{% block content %}
+
+<h1 class="mb-8">Account Settings</h1>
+
+<table class="w-full text-sm text-left text-gray-500">
+    <tbody>
+
+        <!-- EMAIL -->
+        <tr>
+            <th class="pt-4 pb-1 text-base font-bold text-gray-900">
+                Email address
+            </th>
+            <td id="email-address" class="pt-4 pb-1 pl-4">
+                {% if user.email %}{{ user.email }}{% else %}No Email{% endif %}
+            </td>
+            <td class="pt-4 pb-1 pl-4">
+                <a class="cursor-pointer font-medium text-blue-600 hover:underline"
+                    hx-get="{% url 'a_users:profile-emailchange' username=user.username %}"
+                    hx-target="#email-address"
+                    hx-swap="innerHTML">
+                    Edit
+                </a>
+            </td>
+        </tr>
+
+        <!-- EMAIL VERIFY -->
+        <tr class="border-b">
+            <th></th>
+            <td class="pb-4 pl-4">
+                {% if user.emailaddress_set.first.verified %}
+                    <span class="text-green-500">Verified</span>
+                {% else %}
+                    <span class="text-amber-500">Not verified</span>
+                {% endif %}
+            </td>
+            <td class="pb-4 pl-4">
+                <a href="{% url 'a_users:profile-emailverify' username=user.username %}"
+                    class="font-medium text-blue-600 hover:underline">
+                    {% if not user.emailaddress_set.first.verified %}Verify{% endif %}
+                </a>
+            </td>
+        </tr>
+
+        <!-- USERNAME -->
+        <tr class="border-b">
+            <th class="py-4 text-base font-bold text-gray-900">
+                Username
+            </th>
+            <td id="username" class="py-4 pl-4">
+                {{ user.username }}
+            </td>
+            <td class="py-4 pl-4">
+                <a class="cursor-pointer font-medium text-blue-600 hover:underline"
+                    hx-get="{% url 'a_users:profile-usernamechange' username=user.username%}"
+                    hx-target="#username"
+                    hx-swap="innerHTML">
+                    Edit
+                </a>
+            </td>
+        </tr>
+
+        <!-- DELETE -->
+        <tr>
+            <th class="py-4 text-base font-bold text-gray-900">
+                Delete Account
+            </th>
+            <td class="py-4 pl-4">
+                Once deleted, account is gone. Forever.
+            </td>
+            <td class="py-4 pl-4">
+                <a href="{% url 'a_users:profile-delete' username=user.username %}"
+                    class="font-medium text-red-600 hover:underline">
+                    Delete
+                </a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>
+
+{% endblock %}
