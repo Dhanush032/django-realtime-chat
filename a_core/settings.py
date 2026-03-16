@@ -77,25 +77,44 @@ WSGI_APPLICATION = None
 ASGI_APPLICATION = 'a_core.asgi.application'
 
 # Database configuration
-if os.environ.get('DATABASE_URL'):
-    # Production - PostgreSQL
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600,
-            conn_health_checks=True,
-        )
+# if os.environ.get('DATABASE_URL'):
+#     # Production - PostgreSQL
+#     DATABASES = {
+#         'default': dj_database_url.config(
+#             default=os.environ.get('DATABASE_URL'),
+#             conn_max_age=600,
+#             conn_health_checks=True,
+#         )
+#     }
+#     print("[DATABASE] Using Local PostgreSQL")
+# else:
+#     # Local Development - SQLite
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+#     print("[DATABASE] Using local SQLite")
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('DB_NAME'),
+#         'USER': os.getenv('DB_USER'),
+#         'PASSWORD': os.getenv('DB_PASSWORD'),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
-    print("[DATABASE] Using Local PostgreSQL")
-else:
-    # Local Development - SQLite
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-    print("[DATABASE] Using local SQLite")
+}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
